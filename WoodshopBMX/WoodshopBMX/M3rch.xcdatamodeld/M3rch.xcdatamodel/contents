@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="Event" representedClassName=".Event" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="event" inverseEntity="Item" syncable="YES"/>
+        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="event" inverseEntity="Sale" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName=".Item" syncable="YES">
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="purchasedPrice" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="items" inverseEntity="Event" syncable="YES"/>
+        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="item" inverseEntity="Sale" syncable="YES"/>
+        <relationship name="subItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubItem" inverseName="item" inverseEntity="SubItem" syncable="YES"/>
+    </entity>
+    <entity name="Sale" representedClassName=".Sale" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="initialCost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="sales" inverseEntity="Event" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="sales" inverseEntity="Item" syncable="YES"/>
+        <relationship name="subItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubItem" inverseName="sales" inverseEntity="SubItem" syncable="YES"/>
+    </entity>
+    <entity name="SubItem" representedClassName=".SubItem" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialCost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="subItems" inverseEntity="Item" syncable="YES"/>
+        <relationship name="sales" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sale" inverseName="subItem" inverseEntity="Sale" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Event" positionX="-245" positionY="-45" width="128" height="90"/>
+        <element name="Item" positionX="-2" positionY="189" width="128" height="150"/>
+        <element name="Sale" positionX="-441" positionY="189" width="128" height="150"/>
+        <element name="SubItem" positionX="-227" positionY="342" width="128" height="135"/>
+    </elements>
+</model>
