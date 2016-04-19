@@ -50,7 +50,9 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         numFormatter.maximumFractionDigits = 2
         datePickerChanged()
         calculateInventoryTotal()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.saveEmailTapped))
+//        UIBarButtonItem(title: "Save/Email", style: .Default, target: self, action: #selector(self.saveEmailTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save/Email", style: .Plain, target: self, action: #selector(self.saveEmailTapped))
+//            UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.saveEmailTapped))
         
     }
     
@@ -370,7 +372,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     func presentEmailController() {
         
         let emailTitle = "Sales Report"
-        let messageBody = "Here is your M3RCH sales report"
+        let messageBody = "Here is your sales report"
         let toRecipients = [""]
         
         let mailController = MFMailComposeViewController()

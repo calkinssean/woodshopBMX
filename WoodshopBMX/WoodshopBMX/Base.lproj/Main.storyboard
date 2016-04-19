@@ -691,9 +691,10 @@
                             <view alpha="0.76000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAS-GD-lZI">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2SK-G2-dVD">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <state key="normal" title="View Sales Report">
+                                    <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2SK-G2-dVD">
+                                        <rect key="frame" x="234" y="8" width="133" height="28"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title=" View Sales Report ">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -705,16 +706,19 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="2SK-G2-dVD" firstAttribute="top" secondItem="eAS-GD-lZI" secondAttribute="top" id="Fwz-md-Hxe"/>
-                                    <constraint firstAttribute="trailing" secondItem="2SK-G2-dVD" secondAttribute="trailing" id="GFr-bx-6qm"/>
-                                    <constraint firstAttribute="bottom" secondItem="2SK-G2-dVD" secondAttribute="bottom" id="HU0-xv-aNG"/>
-                                    <constraint firstItem="2SK-G2-dVD" firstAttribute="leading" secondItem="eAS-GD-lZI" secondAttribute="leading" id="dH5-o3-1S6"/>
+                                    <constraint firstAttribute="trailing" secondItem="2SK-G2-dVD" secondAttribute="trailing" constant="8" id="GFr-bx-6qm"/>
+                                    <constraint firstAttribute="bottom" secondItem="2SK-G2-dVD" secondAttribute="bottom" constant="8" id="HU0-xv-aNG"/>
+                                    <constraint firstItem="2SK-G2-dVD" firstAttribute="leading" secondItem="eAS-GD-lZI" secondAttribute="leading" constant="8" id="dH5-o3-1S6"/>
                                     <constraint firstItem="2SK-G2-dVD" firstAttribute="centerX" secondItem="eAS-GD-lZI" secondAttribute="centerX" id="eEG-1u-7mR"/>
                                     <constraint firstAttribute="bottom" secondItem="2SK-G2-dVD" secondAttribute="bottom" id="fBl-dM-kgw"/>
-                                    <constraint firstItem="2SK-G2-dVD" firstAttribute="top" secondItem="eAS-GD-lZI" secondAttribute="top" id="zcu-9f-hfO"/>
+                                    <constraint firstItem="2SK-G2-dVD" firstAttribute="centerX" secondItem="eAS-GD-lZI" secondAttribute="centerX" id="gX4-nM-iPH"/>
+                                    <constraint firstItem="2SK-G2-dVD" firstAttribute="top" secondItem="eAS-GD-lZI" secondAttribute="top" constant="8" id="zcu-9f-hfO"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Fwz-md-Hxe"/>
+                                        <exclude reference="GFr-bx-6qm"/>
+                                        <exclude reference="dH5-o3-1S6"/>
                                         <exclude reference="eEG-1u-7mR"/>
                                         <exclude reference="fBl-dM-kgw"/>
                                     </mask>
