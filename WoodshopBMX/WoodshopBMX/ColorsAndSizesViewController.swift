@@ -11,6 +11,7 @@ import UIKit
 class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     
     var currentItem: Item?
+    var subItems = [SubItem]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var customSizeTextField: UITextField!
@@ -19,6 +20,17 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let fetchedSubItems = DataController.sharedInstance.fetchSubItems()
+        for subItem in fetchedSubItems {
+            
+            if subItem.item == self.currentItem {
+                
+                self.subItems.append(subItem)
+                
+            }
+            
+        }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: #selector(self.saveSubItems))
         
@@ -72,15 +84,32 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
                 
                 if let qty = Double(textField.text!) {
                     
-                    if self.customSizeTextField.text != "" {
+                    if qty < 500000 && qty > 0 {
                         
-                        if let size = self.customSizeTextField.text {
+                        if self.customSizeTextField.text != "" {
+                            
+                            if let size = self.customSizeTextField.text {
+                                
+                                let color = setColorForSubItem(textField)
+                                
+                                if let initialCost = self.currentItem?.purchasedPrice {
+                                    
+                                    if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: size, item: self.currentItem!) {
+                                        
+                                        textField.text = ""
+                                        
+                                        saved = true
+                                        
+                                    }
+                                }
+                            }
+                        } else {
                             
                             let color = setColorForSubItem(textField)
                             
                             if let initialCost = self.currentItem?.purchasedPrice {
                                 
-                                if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: size, item: self.currentItem!) {
+                                if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: "None", item: self.currentItem!) {
                                     
                                     textField.text = ""
                                     
@@ -90,19 +119,10 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                     } else {
-                        
-                        let color = setColorForSubItem(textField)
-                        
-                        if let initialCost = self.currentItem?.purchasedPrice {
-                            
-                            if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: "None", item: self.currentItem!) {
-                                
-                                textField.text = ""
-                                
-                                saved = true
-                            }
-                        }
+                        presentAlert("Only numbers between 0 and 500,000 please")
                     }
+                } else {
+                    presentAlert("Quantity can only be a number")
                 }
             }
         }
@@ -161,7 +181,7 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         if textField == quantityTextFields[10] {
             quantityTextFields[10].resignFirstResponder()
         }
-       
+        
         return true
     }
     
@@ -200,7 +220,7 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         if textField.tag == 11 {
             return "UIDeviceRGBColorSpace 1 1 1 1"
         } else {
-            return ""
+            return "none"
         }
     }
     

@@ -43,11 +43,16 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             name: UIKeyboardWillHideNotification,
             object: nil
         )
-        self.setUpCurrentStockLabel()
+        
         print(self.newItem)
         print("VIEW DID LOAD")
         self.imageView.frame.size = CGSizeMake(self.view.frame.width / 2, self.view.frame.width / 2)
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setUpCurrentStockLabel()
     }
 
     //MARK: - Save tapped
@@ -211,6 +216,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 
             }
         }
+        
+        self.currentStock = 0
         
         for item in arrayOfSubItems {
             

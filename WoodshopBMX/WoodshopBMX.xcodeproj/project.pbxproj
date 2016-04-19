@@ -99,18 +99,20 @@
 		141036601CC5550D00605A1E /* WoodshopBMX */ = {
 			isa = PBXGroup;
 			children = (
-				14428B8C1CC55675000B9569 /* AddItemViewController.swift */,
-				14428B8D1CC55675000B9569 /* ColorsAndSizesViewController.swift */,
-				14428B8E1CC55675000B9569 /* DataController.swift */,
-				14428B8F1CC55675000B9569 /* EventsTableViewController.swift */,
-				14428B901CC55675000B9569 /* Helper Methods.swift */,
-				14428B911CC55675000B9569 /* Item Cell.swift */,
-				14428B921CC55675000B9569 /* ItemDetailViewController.swift */,
-				14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */,
+				141036611CC5550D00605A1E /* AppDelegate.swift */,
+				14428BA51CC557E4000B9569 /* Models */,
+				14428BA71CC557FD000B9569 /* Views */,
+				14428BA61CC557EE000B9569 /* Controllers */,
+				14428BA81CC55813000B9569 /* View Controllers */,
+				14428BA91CC5582D000B9569 /* Supporting Files */,
+			);
+			path = WoodshopBMX;
+			sourceTree = "<group>";
+		};
+		14428BA51CC557E4000B9569 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				14428B941CC55675000B9569 /* M3rch.xcdatamodeld */,
-				14428B961CC55675000B9569 /* SalesReportTableViewController.swift */,
-				14428B971CC55675000B9569 /* SaveAndEmailViewController.swift */,
-				14428B981CC55675000B9569 /* TitleViewController.swift */,
 				14428B7C1CC55646000B9569 /* Event.swift */,
 				14428B7D1CC55646000B9569 /* Event+CoreDataProperties.swift */,
 				14428B7E1CC55646000B9569 /* Item.swift */,
@@ -119,13 +121,51 @@
 				14428B811CC55646000B9569 /* Sale+CoreDataProperties.swift */,
 				14428B821CC55646000B9569 /* SubItem.swift */,
 				14428B831CC55646000B9569 /* SubItem+CoreDataProperties.swift */,
-				141036611CC5550D00605A1E /* AppDelegate.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		14428BA61CC557EE000B9569 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				14428B8E1CC55675000B9569 /* DataController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		14428BA71CC557FD000B9569 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14428B911CC55675000B9569 /* Item Cell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		14428BA81CC55813000B9569 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				14428B8C1CC55675000B9569 /* AddItemViewController.swift */,
+				14428B8D1CC55675000B9569 /* ColorsAndSizesViewController.swift */,
+				14428B8F1CC55675000B9569 /* EventsTableViewController.swift */,
+				14428B921CC55675000B9569 /* ItemDetailViewController.swift */,
+				14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */,
+				14428B961CC55675000B9569 /* SalesReportTableViewController.swift */,
+				14428B971CC55675000B9569 /* SaveAndEmailViewController.swift */,
+				14428B981CC55675000B9569 /* TitleViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		14428BA91CC5582D000B9569 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				14428B901CC55675000B9569 /* Helper Methods.swift */,
 				141036651CC5550D00605A1E /* Main.storyboard */,
 				141036681CC5550D00605A1E /* Assets.xcassets */,
 				1410366A1CC5550D00605A1E /* LaunchScreen.storyboard */,
 				1410366D1CC5550D00605A1E /* Info.plist */,
 			);
-			path = WoodshopBMX;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D7935B21B026F6CBD8B52866 /* Frameworks */ = {

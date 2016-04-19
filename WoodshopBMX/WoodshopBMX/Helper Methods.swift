@@ -50,8 +50,8 @@ func getCurrentStock(item: Item) -> Double {
     }
     
     return stockTotal
-    
 }
+
 
 
 

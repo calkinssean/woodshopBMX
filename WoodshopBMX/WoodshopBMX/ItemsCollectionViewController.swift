@@ -204,7 +204,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true
-        print("did end")
+        
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -245,15 +245,12 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
             
             (item: Item) -> Bool in
             
-            for item in arrayOfItems {
-                
+            
+            
                 let nameMatch = item.name?.rangeOfString(searchText, options: .CaseInsensitiveSearch)
                 
                 return nameMatch != nil
-                
-            }
-            
-            return false
+        
         })
         
     }

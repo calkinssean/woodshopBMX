@@ -20,6 +20,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var currentSizeLabel: UILabel!
     @IBOutlet weak var currentColorView: UIView!
     @IBOutlet weak var pickColorLabel: UILabel!
+    @IBOutlet weak var whiteLabel: UILabel!
     
     //MARK: - Properties
     var currentItem: Item?
@@ -41,10 +42,20 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         numFormatter.minimumFractionDigits = 2
         numFormatter.maximumFractionDigits = 2
         
-        self.updateUI()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Item", style: .Plain, target: self, action: #selector(self.editItemTapped))
+        
+        formatter.dateFormat = "h:mm a"
+        formatter.AMSymbol = "AM"
+        formatter.PMSymbol = "PM"
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         //Grab subitems for current item from data store
         let fetchedSubItems = DataController.sharedInstance.fetchSubItems()
+        
+        self.arrayOfSubItems.removeAll()
         
         for subItem in fetchedSubItems {
             
@@ -54,44 +65,50 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             }
         }
         
+        self.updateUI()
         self.changeSizeButtonTitles()
         self.updateColorButtons()
         self.updateSizeButtons()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Item", style: .Plain, target: self, action: #selector(self.editItemTapped))
-        
-        formatter.dateFormat = "h:mm a"
-        formatter.AMSymbol = "AM"
-        formatter.PMSymbol = "PM"
-        
     }
     
     //MARK: - Color button tapped
     @IBAction func colorButtons(sender: UIButton) {
         
+        var stock: Int = 0
+        
         if let color = sender.backgroundColor {
             
             self.currentColor = "\(color)"
+            if self.currentColor == "UIDeviceRGBColorSpace 1 1 1 1" {
+                self.whiteLabel.hidden = false
+            } else {
+                self.whiteLabel.hidden = true
+            }
             self.currentColorView.backgroundColor = color
             self.pickColorLabel.text = "Pick a Size"
             
         }
         
-        var stock: Int = 0
-        for item in arrayOfSubItems {
+       for item in arrayOfSubItems {
+        
             if item.color == self.currentColor {
+              
                 if let quan = item.quantity {
                     stock = stock + Int(quan)
-                    self.itemQuantityLabel.text = "\(stock) left"
+                   
                 }
             }
         }
         
+        self.itemQuantityLabel.text = "\(stock) left"
         self.updateSizeButtons()
         
     }
     
     //MARK: - Size button tapped
     @IBAction func sizeButtons(sender: UIButton) {
+        
+        var quantityTotal: Int = 0
         
         if let size = sender.titleLabel?.text {
             
@@ -105,15 +122,20 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             
             if item.color == self.currentColor && item.size == self.currentSize {
                 
-                self.currentSubItem = item
-                
-                if let quan = (item.quantity) {
+                if let quantity = item.quantity {
                     
-                    self.itemQuantityLabel.text = "\(Int(quan)) left"
+                    quantityTotal = quantityTotal + Int(quantity)
                     
+                    if Int(quantity) > 0 {
+                        
+                        self.currentSubItem = item
+                        
+                    }
                 }
             }
         }
+        
+        self.itemQuantityLabel.text = "\(quantityTotal) left"
     }
     
     //MARK: - Sell item tapped
@@ -196,7 +218,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                                     if let initialCost = self.currentItem?.purchasedPrice {
                                         
                                         DataController.sharedInstance.seedSale(date, type: "Cash", amount: priceDouble, initialCost: Double(initialCost), event: event, item: item, subItem: currentSubItem)
-                                   
+                                        
+                                        self.updateColorButtons()
+                                        self.updateSizeButtons()
+                                        self.updateUI()
                                     }
                                 }
                             }
@@ -204,19 +229,6 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                     }
                 } else {
                     self.presentAlert("Item is sold out")
-                }
-            }
-            
-            for item in self.arrayOfSubItems {
-                
-                if item.color == self.currentColor && item.size == self.currentSize {
-                    
-                    self.currentSubItem = item
-                    
-                    if let quan = item.quantity {
-                        
-                        self.itemQuantityLabel.text = "\(Int(quan)) left"
-                    }
                 }
             }
         }
@@ -252,6 +264,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                                         
                                         DataController.sharedInstance.seedSale(date, type: "Card", amount: priceDouble, initialCost: Double(initialCost), event: event, item: item, subItem: currentSubItem)
                                         
+                                        self.updateColorButtons()
+                                        self.updateSizeButtons()
+                                        self.updateUI()
+                                        
                                     }
                                 }
                             }
@@ -263,7 +279,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                     self.presentAlert("Item is sold out")
                 }
             }
-           
+            
             self.updateUI()
         }
         
@@ -363,6 +379,8 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         
         for sItem in arrayOfSubItems {
             
+            print("this is a subitem saying hi")
+            
             if let quan = sItem.quantity {
                 
                 if Double(quan) > 0 {
@@ -378,6 +396,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                             }
                         }
                     }
+                } else {
+                    
+                    DataController.sharedInstance.managedObjectContext.deleteObject(sItem)
+                    self.save()
                 }
             }
         }
@@ -441,6 +463,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         
     }
     
+    //Data controller save
     func save() {
         
         

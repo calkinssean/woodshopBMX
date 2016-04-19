@@ -65,9 +65,10 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     func datePickerChanged () {
         
         self.salesForSearchedDay = []
-        let string = formatter.stringFromDate(getStartOfDay(startDatePicker.date))
+        let date = getStartOfDay(startDatePicker.date)
         formatter.dateFormat = "MM/dd/yyyy"
-        startDateLabel.text = string
+        let dateString = formatter.stringFromDate(date)
+        startDateLabel.text = dateString
         setUpXAxis(getStartOfDay(startDatePicker.date).timeIntervalSince1970)
         for sale in arrayOfSales {
             if let created = sale.created {
