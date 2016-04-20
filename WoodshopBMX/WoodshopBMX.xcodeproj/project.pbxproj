@@ -22,14 +22,12 @@
 		14428B991CC55675000B9569 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B8C1CC55675000B9569 /* AddItemViewController.swift */; };
 		14428B9A1CC55675000B9569 /* ColorsAndSizesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B8D1CC55675000B9569 /* ColorsAndSizesViewController.swift */; };
 		14428B9B1CC55675000B9569 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B8E1CC55675000B9569 /* DataController.swift */; };
-		14428B9C1CC55675000B9569 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B8F1CC55675000B9569 /* EventsTableViewController.swift */; };
 		14428B9D1CC55675000B9569 /* Helper Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B901CC55675000B9569 /* Helper Methods.swift */; };
-		14428B9E1CC55675000B9569 /* Item Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B911CC55675000B9569 /* Item Cell.swift */; };
+		14428B9E1CC55675000B9569 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B911CC55675000B9569 /* ItemCell.swift */; };
 		14428B9F1CC55675000B9569 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B921CC55675000B9569 /* ItemDetailViewController.swift */; };
 		14428BA01CC55675000B9569 /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */; };
 		14428BA11CC55675000B9569 /* M3rch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14428B941CC55675000B9569 /* M3rch.xcdatamodeld */; };
 		14428BA21CC55675000B9569 /* SalesReportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B961CC55675000B9569 /* SalesReportTableViewController.swift */; };
-		14428BA31CC55675000B9569 /* SaveAndEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B971CC55675000B9569 /* SaveAndEmailViewController.swift */; };
 		14428BA41CC55675000B9569 /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14428B981CC55675000B9569 /* TitleViewController.swift */; };
 		B43074248BF47B7B2191D3EB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4829801E3C39A2BB55A07F87 /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -52,14 +50,12 @@
 		14428B8C1CC55675000B9569 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		14428B8D1CC55675000B9569 /* ColorsAndSizesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsAndSizesViewController.swift; sourceTree = "<group>"; };
 		14428B8E1CC55675000B9569 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		14428B8F1CC55675000B9569 /* EventsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		14428B901CC55675000B9569 /* Helper Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Helper Methods.swift"; sourceTree = "<group>"; };
-		14428B911CC55675000B9569 /* Item Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item Cell.swift"; sourceTree = "<group>"; };
+		14428B911CC55675000B9569 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		14428B921CC55675000B9569 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
 		14428B951CC55675000B9569 /* M3rch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = M3rch.xcdatamodel; sourceTree = "<group>"; };
 		14428B961CC55675000B9569 /* SalesReportTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesReportTableViewController.swift; sourceTree = "<group>"; };
-		14428B971CC55675000B9569 /* SaveAndEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveAndEmailViewController.swift; sourceTree = "<group>"; };
 		14428B981CC55675000B9569 /* TitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		4829801E3C39A2BB55A07F87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8967A8BAF8AB3C27C43AEA2F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -136,7 +132,7 @@
 		14428BA71CC557FD000B9569 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				14428B911CC55675000B9569 /* Item Cell.swift */,
+				14428B911CC55675000B9569 /* ItemCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -144,14 +140,12 @@
 		14428BA81CC55813000B9569 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				14428B981CC55675000B9569 /* TitleViewController.swift */,
+				14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */,
 				14428B8C1CC55675000B9569 /* AddItemViewController.swift */,
 				14428B8D1CC55675000B9569 /* ColorsAndSizesViewController.swift */,
-				14428B8F1CC55675000B9569 /* EventsTableViewController.swift */,
 				14428B921CC55675000B9569 /* ItemDetailViewController.swift */,
-				14428B931CC55675000B9569 /* ItemsCollectionViewController.swift */,
 				14428B961CC55675000B9569 /* SalesReportTableViewController.swift */,
-				14428B971CC55675000B9569 /* SaveAndEmailViewController.swift */,
-				14428B981CC55675000B9569 /* TitleViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -309,7 +303,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				14428B891CC55646000B9569 /* Sale+CoreDataProperties.swift in Sources */,
-				14428B9C1CC55675000B9569 /* EventsTableViewController.swift in Sources */,
 				14428B9B1CC55675000B9569 /* DataController.swift in Sources */,
 				14428BA01CC55675000B9569 /* ItemsCollectionViewController.swift in Sources */,
 				14428B8A1CC55646000B9569 /* SubItem.swift in Sources */,
@@ -317,14 +310,13 @@
 				14428B9A1CC55675000B9569 /* ColorsAndSizesViewController.swift in Sources */,
 				14428B851CC55646000B9569 /* Event+CoreDataProperties.swift in Sources */,
 				14428B8B1CC55646000B9569 /* SubItem+CoreDataProperties.swift in Sources */,
-				14428B9E1CC55675000B9569 /* Item Cell.swift in Sources */,
+				14428B9E1CC55675000B9569 /* ItemCell.swift in Sources */,
 				14428B991CC55675000B9569 /* AddItemViewController.swift in Sources */,
 				14428BA11CC55675000B9569 /* M3rch.xcdatamodeld in Sources */,
 				14428B9F1CC55675000B9569 /* ItemDetailViewController.swift in Sources */,
 				14428B841CC55646000B9569 /* Event.swift in Sources */,
 				141036621CC5550D00605A1E /* AppDelegate.swift in Sources */,
 				14428BA21CC55675000B9569 /* SalesReportTableViewController.swift in Sources */,
-				14428BA31CC55675000B9569 /* SaveAndEmailViewController.swift in Sources */,
 				14428BA41CC55675000B9569 /* TitleViewController.swift in Sources */,
 				14428B9D1CC55675000B9569 /* Helper Methods.swift in Sources */,
 				14428B881CC55646000B9569 /* Sale.swift in Sources */,

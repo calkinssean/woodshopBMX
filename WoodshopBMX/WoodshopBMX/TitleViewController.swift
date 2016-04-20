@@ -10,9 +10,11 @@ import UIKit
 
 class TitleViewController: UIViewController {
     
+    //MARK: - Properties
     var currentEvent: Event?
     var arrayOfEvents = [Event]()
     
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +23,7 @@ class TitleViewController: UIViewController {
         self.arrayOfEvents = DataController.sharedInstance.fetchEvents()
     }
     
+    //MARK: - Woodpile Tapped
     @IBAction func woodTapped(sender: UIButton) {
     
         for event in arrayOfEvents {
@@ -35,6 +38,7 @@ class TitleViewController: UIViewController {
         }
     }
     
+    //MARK: - Bike tapped
     @IBAction func bikeTapped(sender: UIButton) {
         
         for event in arrayOfEvents {
@@ -49,6 +53,7 @@ class TitleViewController: UIViewController {
         }
     }
 
+    //MARK: - Create Events
     func seedEvents() {
         
         if DataController.sharedInstance.fetchEvents().count < 2 {
@@ -59,6 +64,7 @@ class TitleViewController: UIViewController {
         }
     }
     
+    //MARK: - Prepare for segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showItemCollectionView" {

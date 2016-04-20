@@ -12,6 +12,7 @@ import MessageUI
 
 class SalesReportTableViewController: UITableViewController, UITextFieldDelegate,  MFMailComposeViewControllerDelegate {
     
+    //MARK: - Outlets
     @IBOutlet weak var lineChartView: LineChartView!
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var startDatePicker: UIDatePicker!
@@ -21,6 +22,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var profitLabel: UILabel!
     @IBOutlet weak var inventoryTotalLabel: UILabel!
     
+    //MARK: - Properties
     var formatter = NSDateFormatter()
     var numFormatter = NSNumberFormatter()
     var startDatePickerHidden = true
@@ -32,9 +34,11 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     var salesDoubles = [Double]()
     var imageData: NSData?
     
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Grab all sales for woodshop or bikeshop event
         let fetchedSales = DataController.sharedInstance.fetchSales()
         
         for sale in fetchedSales {
@@ -50,9 +54,8 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         numFormatter.maximumFractionDigits = 2
         datePickerChanged()
         calculateInventoryTotal()
-//        UIBarButtonItem(title: "Save/Email", style: .Default, target: self, action: #selector(self.saveEmailTapped))
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save/Email", style: .Plain, target: self, action: #selector(self.saveEmailTapped))
-//            UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(self.saveEmailTapped))
         
     }
     
@@ -67,14 +70,25 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     func datePickerChanged () {
         
         self.salesForSearchedDay = []
+        
         let date = getStartOfDay(startDatePicker.date)
+        
+        //change date format to not have hours before updating label text
         formatter.dateFormat = "MM/dd/yyyy"
+        
         let dateString = formatter.stringFromDate(date)
+        
         startDateLabel.text = dateString
+        
         setUpXAxis(getStartOfDay(startDatePicker.date).timeIntervalSince1970)
+        
         for sale in arrayOfSales {
+            
             if let created = sale.created {
+                
+                //If sale is within the start of the day and the end of the day, add it to array
                 if self.isWithinIntervals(getStartOfDay(startDatePicker.date), createdDate: created, timeInterval: 86400) {
+                    
                     self.salesForSearchedDay.append(sale)
                 }
             }
@@ -103,6 +117,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     //MARK: - Tableview Datasource
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
+        //Hides and shows date picker base on the startDatePickerHiddenBool
         if startDatePickerHidden && indexPath.section == 0 && indexPath.row == 2 {
             
             return 0
@@ -120,6 +135,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     
     //MARK: - Inventory Total Calculation
     func calculateInventoryTotal() {
+        
         var inventoryTotal: Double = 0
         var arrayOfItems = [Item]()
         
@@ -128,6 +144,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         
         for item in arrayOfFetchItems {
             
+            //Gets items for current event
             if item.event == self.currentEvent {
                 
                 arrayOfItems.append(item)
@@ -138,6 +155,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
             var itemQuantity = 0
             var arrayOfSubItems = [SubItem]()
             
+            //Creates an array for the sub items of each item
             for subItem in arrayOfFetchedSubItems {
                 
                 if subItem.item == item {
@@ -146,6 +164,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
                 }
             }
             
+            //Add quantity of each sub item to itemQuantity variable
             for subItem in arrayOfSubItems {
                 
                 if let quan = subItem.quantity {
@@ -154,6 +173,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
                 }
             }
             
+            //Multiply itemQuantity by price
             if let price = item.price {
                 
                 inventoryTotal = inventoryTotal + (Double(itemQuantity) * Double(price))
@@ -175,6 +195,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         var cardTotal: Double = 0
         var profitTotal: Double = 0
         
+        //Adds sales amount for every sale in salesForSearchedDay array
         if self.salesForSearchedDay.count != 0 {
             
             for sale in salesForSearchedDay {
@@ -185,6 +206,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
                     
                 }
                 
+                //Adds cash sales amounts
                 if sale.type == "Cash" {
                     
                     if let amount = sale.amount {
@@ -193,6 +215,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
                     }
                 }
                 
+                //Adds card sales amount
                 if sale.type == "Card" {
                     
                     if let amount = sale.amount {
@@ -201,6 +224,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
                     }
                 }
                 
+                //Adds initial cost amount from all sales, subtracts it from sales total
                 if let amount = sale.amount {
                     
                     if let cost = sale.initialCost {
@@ -265,6 +289,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         formatter.AMSymbol = "AM"
         formatter.PMSymbol = "PM"
         
+        //Creates a string for each hour of the day and appends it into an array
         for _ in 1...24 {
             
             times.append(startDate)
@@ -286,6 +311,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         
         self.salesDoubles.removeAll()
         
+        //Creates a Double for each string in self.timeStrings by adding sales totals for each hour
         for time in times {
             
             var total: Double = 0
@@ -327,7 +353,10 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         
         lineChartView.descriptionText = ""
         
+        //Set chart colors
         chartDataSet.colors = [UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)]
+        
+        //Disable yScale zooming
         lineChartView.scaleXEnabled = true
         lineChartView.scaleYEnabled = false
         
@@ -436,6 +465,7 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
     //MARK: - Helper methods
     func isWithinIntervals(startDate: NSDate, createdDate: NSDate, timeInterval: NSTimeInterval) -> Bool {
         
+        //Returns a bool if a specific time is between a start date and (start date + time interval)
         let startInterval = startDate.timeIntervalSince1970
         let endInterval = startInterval + timeInterval
         let createdDateInterval = createdDate.timeIntervalSince1970
@@ -448,8 +478,10 @@ class SalesReportTableViewController: UITableViewController, UITextFieldDelegate
         return false
     }
     
+    //MARK: - Get start of day
     func getStartOfDay(date: NSDate) -> NSDate {
         
+        //takes a date, returns a date with 12:00 AM as time
         formatter.dateFormat = "MM/dd/yyyy"
         let dateString = "\(formatter.stringFromDate(date)) 00:00 AM"
         formatter.dateFormat = "MM/dd/yyyy hh:mm a"

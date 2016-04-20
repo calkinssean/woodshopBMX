@@ -10,14 +10,18 @@ import UIKit
 
 class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     
+    //MARK: - Properties
+    var currentEvent: Event?
     var currentItem: Item?
     var subItems = [SubItem]()
     
+    //MARK: - Outlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var customSizeTextField: UITextField!
     @IBOutlet var quantityTextFields: [UITextField]!
     
-    
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,11 +54,25 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let event = self.currentEvent {
+            
+            if event.name == "WoodShop" {
+                
+                self.backgroundImageView.image = UIImage(named: "wood copy")
+            }
+        }
+        
+    }
+    
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    //MARK: - Scroll view keyboard methods
     func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
         guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else { return }
         scrollView.contentInset.bottom = 0
@@ -73,13 +91,14 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         adjustInsetForKeyboardShow(false, notification: notification)
     }
     
-    
+    //MARK: Save sub items
     func saveSubItems() {
         
         var saved = false
         
         for textField in quantityTextFields {
             
+            //Ensure there is text in the field before saving
             if textField.text != "" {
                 
                 if let qty = Double(textField.text!) {
@@ -94,6 +113,7 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
                                 
                                 if let initialCost = self.currentItem?.purchasedPrice {
                                     
+                                    //Data controller seed sub item
                                     if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: size, item: self.currentItem!) {
                                         
                                         textField.text = ""
@@ -185,8 +205,10 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    //MARK: - Set color for sub item
     func setColorForSubItem(textField: UITextField) -> String {
         
+        //Saves the sub item color as a string for comparison purposes later
         if textField.tag == 1 {
             return "UIDeviceRGBColorSpace 0 0 0 1"
         }
@@ -224,6 +246,7 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: - Present Alert
     func presentAlert(message: String) {
         
         let alert = UIAlertController(title: "\(message)",

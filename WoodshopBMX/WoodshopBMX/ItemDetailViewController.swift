@@ -12,6 +12,7 @@ import Charts
 class ItemDetailViewController: UIViewController, ChartViewDelegate {
     
     //MARK: - Outlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var itemPriceLabel: UILabel!
     @IBOutlet weak var itemQuantityLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -23,6 +24,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var whiteLabel: UILabel!
     
     //MARK: - Properties
+    var currentEvent: Event?
     var currentItem: Item?
     var currentSubItem: SubItem?
     var currentColor: String?
@@ -52,6 +54,15 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
+        if let event = self.currentEvent {
+            
+            if event.name == "WoodShop" {
+                
+                self.backgroundImageView.image = UIImage(named: "wood copy")
+            }
+        }
+        
         //Grab subitems for current item from data store
         let fetchedSubItems = DataController.sharedInstance.fetchSubItems()
         
@@ -78,6 +89,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         
         if let color = sender.backgroundColor {
             
+            //Changed current color on tap to button's background color
             self.currentColor = "\(color)"
             if self.currentColor == "UIDeviceRGBColorSpace 1 1 1 1" {
                 self.whiteLabel.hidden = false
@@ -89,13 +101,14 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             
         }
         
-       for item in arrayOfSubItems {
-        
+        for item in arrayOfSubItems {
+            
+            //If sub item with current color exists, update quantity label and show sizes for that color
             if item.color == self.currentColor {
-              
+                
                 if let quan = item.quantity {
                     stock = stock + Int(quan)
-                   
+                    
                 }
             }
         }
@@ -108,6 +121,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
     //MARK: - Size button tapped
     @IBAction func sizeButtons(sender: UIButton) {
         
+        //Changes current size on button tap
         var quantityTotal: Int = 0
         
         if let size = sender.titleLabel?.text {
@@ -120,6 +134,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         
         for item in arrayOfSubItems {
             
+            //If sub item with selected color and size exists, update current quantity label
             if item.color == self.currentColor && item.size == self.currentSize {
                 
                 if let quantity = item.quantity {
@@ -199,9 +214,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                     
                     newAmount = newAmount - Double(1)
                     
+                    //update quantity on sale
                     self.currentSubItem?.setValue(newAmount, forKey: "quantity")
                     
-                    self.save()
+                    dataControllerSave()
                     
                     let date = NSDate()
                     
@@ -222,13 +238,16 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                                         self.updateColorButtons()
                                         self.updateSizeButtons()
                                         self.updateUI()
+                                       
                                     }
                                 }
                             }
                         }
                     }
                 } else {
+                    
                     self.presentAlert("Item is sold out")
+                    
                 }
             }
         }
@@ -244,9 +263,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                     
                     newAmount = newAmount - Double(1)
                     
+                    //update quantity on sale
                     self.currentSubItem?.setValue(newAmount, forKey: "quantity")
                     
-                    self.save()
+                    dataControllerSave()
                     
                     let date = NSDate()
                     
@@ -267,6 +287,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                                         self.updateColorButtons()
                                         self.updateSizeButtons()
                                         self.updateUI()
+                                        
                                         
                                     }
                                 }
@@ -342,6 +363,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             }
         }
         
+        //loop through buttons array and change button titles to size strings as needed then unhide the button
         for (index, size) in self.sizeStrings.enumerate() {
             
             let button = self.sizeButtons[index]
@@ -365,6 +387,8 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             let controller = segue.destinationViewController as! ColorsAndSizesViewController
             
             controller.currentItem = self.currentItem
+            controller.currentEvent = self.currentEvent
+            
         }
     }
     
@@ -379,14 +403,13 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         
         for sItem in arrayOfSubItems {
             
-            print("this is a subitem saying hi")
-            
             if let quan = sItem.quantity {
                 
                 if Double(quan) > 0 {
                     
                     for button in colorButtons {
                         
+                        //Unhides the color button if the current item has a sub item of that color
                         if let color = button.backgroundColor {
                             
                             if "\(color)" == sItem.color {
@@ -396,10 +419,6 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                             }
                         }
                     }
-                } else {
-                    
-                    DataController.sharedInstance.managedObjectContext.deleteObject(sItem)
-                    self.save()
                 }
             }
         }
@@ -426,6 +445,7 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
                             
                             if let size = button.titleLabel!.text {
                                 
+                                //Unhides size button if current item has sub item of that size and current color
                                 if size == sItem.size && color == self.currentColor {
                                     
                                     button.hidden = false
@@ -462,20 +482,4 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
         return stockTotal
         
     }
-    
-    //Data controller save
-    func save() {
-        
-        
-        do {
-            
-            try DataController.sharedInstance.managedObjectContext.save()
-            
-        } catch {
-            
-            print("\(error)")
-            
-        }
-    }
-    
 }

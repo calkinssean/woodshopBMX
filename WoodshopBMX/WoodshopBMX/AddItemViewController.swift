@@ -21,6 +21,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var sizeStrings = [String]()
     
     //MARK: - Outlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var itemNameTextField: UITextField!
@@ -37,6 +38,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             name: UIKeyboardWillShowNotification,
             object: nil
         )
+        
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: #selector(self.keyboardWillHide(_:)),
@@ -44,14 +46,18 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             object: nil
         )
         
-        print(self.newItem)
-        print("VIEW DID LOAD")
-        self.imageView.frame.size = CGSizeMake(self.view.frame.width / 2, self.view.frame.width / 2)
-        
+            self.imageView.frame.size = CGSizeMake(self.view.frame.width / 2, self.view.frame.width / 2)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if let event = self.currentEvent {
+            
+            if event.name == "WoodShop" {
+                
+                self.backgroundImageView.image = UIImage(named: "wood copy")
+            }
+        }
         self.setUpCurrentStockLabel()
     }
 
@@ -143,8 +149,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 //creates a new filepath from docs directory and fileName
                 let filepath = getDocumentsDirectory().URLByAppendingPathComponent(imageName)
                 
-                print("THIS IS THE IMAGE NAME: \(imageName)")
-                
                 //converts image into data
                 let pngData = UIImagePNGRepresentation(editedImage)
                 
@@ -182,6 +186,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             let controller = segue.destinationViewController as! ColorsAndSizesViewController
             
             controller.currentItem = self.currentItem
+            controller.currentEvent = self.currentEvent
             
         }
     }

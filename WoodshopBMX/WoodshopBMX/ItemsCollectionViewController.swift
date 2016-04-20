@@ -37,6 +37,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        //Changes background image for woodshop or bike shop
         if let event = self.currentEvent {
             
             if event.name == "WoodShop" {
@@ -47,6 +48,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
         
         self.arrayOfItems = []
         
+        //Grabs all items for the current event
         let fetchedItems = DataController.sharedInstance.fetchItems()
         
         for item in fetchedItems {
@@ -62,6 +64,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
         
     }
     
+    //MARK: - View sales report tapped
     @IBAction func viewSalesReportTapped(sender: UIButton) {
         performSegueWithIdentifier("ShowSalesReportViewSegue", sender: self)
         
@@ -88,11 +91,11 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
     // Configure the cell
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Item Cell", forIndexPath: indexPath) as! Item_Cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Item Cell", forIndexPath: indexPath) as! ItemCell
         
         cell.soldOutImage.hidden = true
-        //cell.backgroundColor = UIColor(red: 170, green: 170, blue: 170, alpha: 1)
         
+        //If search is active, display search results
         if(searchActive) {
             
             let i = searchResults[indexPath.row]
@@ -104,6 +107,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
             
             cell.quantityLabel.text = ("\(quantity) left")
             
+            //Places "sold out" image over item picture if quantity is zero
             if quantity == 0 {
                 
                 cell.soldOutImage.hidden = false
@@ -124,6 +128,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
                 
             }
             
+            //Display regular items if search is not active
         } else {
             
             let i = arrayOfItems[indexPath.row]
@@ -182,6 +187,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
     //MARK: - UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
+        //Sets the current item to selected item
         if(searchActive) {
             
             self.currentItem = searchResults[indexPath.row]
@@ -219,6 +225,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
+        //filters items on text did change
         filterItems(searchText)
         
         print(searchActive)
@@ -245,8 +252,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
             
             (item: Item) -> Bool in
             
-            
-            
+                //if item name in arrayOfItems matches search text put it in searchResults array
                 let nameMatch = item.name?.rangeOfString(searchText, options: .CaseInsensitiveSearch)
                 
                 return nameMatch != nil
@@ -260,12 +266,18 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
         if segue.identifier == "ShowItemDetailViewSegue" {
             let controller = segue.destinationViewController as! ItemDetailViewController
             
-            controller.currentItem = self.currentItem!
+            controller.currentEvent = self.currentEvent
+            
+            if let item  = self.currentItem {
+                controller.currentItem = item
+            }
         }
+        
         if segue.identifier == "showAddItemViewSegue" {
             let controller = segue.destinationViewController as! AddItemViewController
             controller.currentEvent = self.currentEvent
         }
+        
         if segue.identifier == "ShowSalesReportViewSegue" {
             let controller = segue.destinationViewController as! SalesReportTableViewController
             controller.currentEvent = self.currentEvent
