@@ -213,6 +213,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         let fetchedSubItems = DataController.sharedInstance.fetchSubItems()
         
+        self.arrayOfSubItems.removeAll()
+        
         for subItem in fetchedSubItems {
             
             if subItem.item == self.currentItem {
