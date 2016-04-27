@@ -228,11 +228,7 @@ class ItemsCollectionViewController: UIViewController, UICollectionViewDataSourc
         //filters items on text did change
         filterItems(searchText)
         
-        print(searchActive)
-        
-        print(self.searchResults.count)
-        
-        if(searchResults.count == 0) {
+       if(searchResults.count == 0) {
             
             searchActive = false
             

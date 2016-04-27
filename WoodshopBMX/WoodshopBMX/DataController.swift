@@ -64,7 +64,7 @@ class DataController: NSObject {
         
         do {
             try managedObjectContext.save()
-            print("succesfully saved event")
+        
             return true
             
         } catch {
@@ -88,7 +88,7 @@ class DataController: NSObject {
         
         do {
             try managedObjectContext.save()
-            print("succesfully saved item")
+            
             return true
             
         } catch {
@@ -113,9 +113,7 @@ class DataController: NSObject {
         do {
             
             try managedObjectContext.save()
-            print("saved sub item")
-            print(itemEntity.color)
-            print(itemEntity.size)
+           
             return true
             
         } catch {
@@ -140,7 +138,7 @@ class DataController: NSObject {
         
         do {
             try managedObjectContext.save()
-            print("succesfully saved sale")
+            
             return true
             
         } catch {
