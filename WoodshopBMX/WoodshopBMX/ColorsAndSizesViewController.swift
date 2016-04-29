@@ -113,13 +113,17 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
                                 
                                 if let initialCost = self.currentItem?.purchasedPrice {
                                     
-                                    //Data controller seed sub item
-                                    if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: size, item: self.currentItem!) {
+                                    if self.countAmountOfSizes() < 16 {
                                         
-                                        textField.text = ""
-                                        
-                                        saved = true
-                                        
+                                        //Data controller seed sub item
+                                        if DataController.sharedInstance.seedSubItem(Double(initialCost), quantity: qty, color: color, size: size, item: self.currentItem!) {
+                                            
+                                            textField.text = ""
+                                            
+                                            saved = true
+                                        }
+                                    } else {
+                                        presentAlert("Max amount of sizes is 15")
                                     }
                                 }
                             }
@@ -244,6 +248,27 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
         } else {
             return "none"
         }
+    }
+    
+    //MARK: - Check for max buttons
+    func countAmountOfSizes() -> Int {
+        
+        var sizesArray = [String]()
+        
+        for item in subItems {
+            
+            if let size = item.size {
+                if !sizesArray.contains(size) {
+                    
+                    sizesArray.append(size)
+                }
+            }
+            
+        }
+        
+        print(sizesArray.count)
+        return sizesArray.count
+        
     }
     
     //MARK: - Present Alert

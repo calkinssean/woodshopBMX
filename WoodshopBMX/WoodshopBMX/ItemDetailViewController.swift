@@ -354,14 +354,18 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
     //MARK: - Change size button titles
     func changeSizeButtonTitles() {
         
+        self.sizeStrings = []
+        
         for item in arrayOfSubItems {
             
             if !self.sizeStrings.contains(item.size!) {
                 
-                self.sizeStrings.append(item.size!)
-                
+               self.sizeStrings.append(item.size!)
+                               
             }
         }
+        
+        print(sizeStrings)
         
         //loop through buttons array and change button titles to size strings as needed then unhide the button
         for (index, size) in self.sizeStrings.enumerate() {
@@ -370,6 +374,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             
             button.setTitle(size, forState: .Normal)
             
+//            for button in sizeButtons {
+//                print(button.titleLabel?.text)
+//            }
+//            
             button.hidden = false
         }
     }
@@ -432,6 +440,10 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             button.hidden = true
             
         }
+//        
+//        for button in sizeButtons {
+//            print(button.titleLabel?.text)
+//        }
         
         for sItem in arrayOfSubItems {
             
