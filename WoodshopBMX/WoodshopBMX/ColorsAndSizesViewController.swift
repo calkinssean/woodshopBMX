@@ -18,8 +18,22 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Outlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var customSizeTextField: UITextField!
+    
     @IBOutlet var quantityTextFields: [UITextField]!
+    
+    @IBOutlet weak var customSizeTextField: UITextField!
+    @IBOutlet weak var blackQuantityTextField: UITextField!
+    @IBOutlet weak var blueQuantityTextField: UITextField!
+    @IBOutlet weak var brownQuantityTextField: UITextField!
+    @IBOutlet weak var cyanQuantityTextField: UITextField!
+    @IBOutlet weak var greenQuantityTextField: UITextField!
+    @IBOutlet weak var magentaQuantityTextField: UITextField!
+    @IBOutlet weak var orangeQuantityTextField: UITextField!
+    @IBOutlet weak var purpleQuantityTextField: UITextField!
+    @IBOutlet weak var redQuantityTextField: UITextField!
+    @IBOutlet weak var yellowQuantityTextField: UITextField!
+    @IBOutlet weak var whiteQuantityTextField: UITextField!
+    
     
     //MARK: - View lifecycle
     override func viewDidLoad() {
@@ -33,7 +47,6 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
                 self.subItems.append(subItem)
                 
             }
-            
         }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: #selector(self.saveSubItems))
@@ -75,10 +88,10 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Scroll view keyboard methods
     func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
         guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else { return }
-        scrollView.contentInset.bottom = 0
-        scrollView.scrollIndicatorInsets.bottom = 0
+        scrollView.contentInset.bottom = 20
+        scrollView.scrollIndicatorInsets.bottom = 20
         let keyboardFrame = value.CGRectValue()
-        let adjustmentHeight = (CGRectGetHeight(keyboardFrame) + 20) * (show ? 1 : -1)
+        let adjustmentHeight = (CGRectGetHeight(keyboardFrame)) * (show ? 1 : -1)
         scrollView.contentInset.bottom += adjustmentHeight
         scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
     }
@@ -159,51 +172,63 @@ class ColorsAndSizesViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Text field delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == customSizeTextField {
+            
             self.customSizeTextField.resignFirstResponder()
-            quantityTextFields[0].becomeFirstResponder()
+            self.blackQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[0] {
-            quantityTextFields[0].resignFirstResponder()
-            quantityTextFields[1].becomeFirstResponder()
+        if textField == self.blackQuantityTextField {
+            
+            self.blackQuantityTextField.resignFirstResponder()
+            self.blueQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[1] {
-            quantityTextFields[1].resignFirstResponder()
-            quantityTextFields[2].becomeFirstResponder()
+        if textField == self.blueQuantityTextField {
+            
+            self.blueQuantityTextField.resignFirstResponder()
+            self.brownQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[2] {
-            quantityTextFields[2].resignFirstResponder()
-            quantityTextFields[3].becomeFirstResponder()
+        if textField == self.brownQuantityTextField {
+            
+            self.brownQuantityTextField.resignFirstResponder()
+            self.cyanQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[3] {
-            quantityTextFields[3].resignFirstResponder()
-            quantityTextFields[4].becomeFirstResponder()
+        if textField == self.cyanQuantityTextField {
+            
+            self.cyanQuantityTextField.resignFirstResponder()
+            self.greenQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[4] {
-            quantityTextFields[4].resignFirstResponder()
-            quantityTextFields[5].becomeFirstResponder()
+        if textField == self.greenQuantityTextField {
+            
+            self.greenQuantityTextField.resignFirstResponder()
+            self.magentaQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[5] {
-            quantityTextFields[5].resignFirstResponder()
-            quantityTextFields[6].becomeFirstResponder()
+        if textField == self.magentaQuantityTextField {
+            
+            self.magentaQuantityTextField.resignFirstResponder()
+            self.orangeQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[6] {
-            quantityTextFields[6].resignFirstResponder()
-            quantityTextFields[7].becomeFirstResponder()
+        if textField == self.orangeQuantityTextField {
+            
+            self.orangeQuantityTextField.resignFirstResponder()
+            self.purpleQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[7] {
-            quantityTextFields[7].resignFirstResponder()
-            quantityTextFields[8].becomeFirstResponder()
+        if textField == self.purpleQuantityTextField {
+            
+            self.purpleQuantityTextField.resignFirstResponder()
+            self.redQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[8] {
-            quantityTextFields[8].resignFirstResponder()
-            quantityTextFields[9].becomeFirstResponder()
+        if textField == self.redQuantityTextField {
+            
+            self.redQuantityTextField.resignFirstResponder()
+            self.yellowQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[9] {
-            quantityTextFields[9].resignFirstResponder()
-            quantityTextFields[10].becomeFirstResponder()
+        if textField == self.yellowQuantityTextField {
+            
+            self.yellowQuantityTextField.resignFirstResponder()
+            self.whiteQuantityTextField.becomeFirstResponder()
         }
-        if textField == quantityTextFields[10] {
-            quantityTextFields[10].resignFirstResponder()
+        if textField == self.whiteQuantityTextField {
+            
+            self.whiteQuantityTextField.resignFirstResponder()
         }
         
         return true

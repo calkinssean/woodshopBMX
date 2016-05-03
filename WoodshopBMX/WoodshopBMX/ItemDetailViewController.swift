@@ -365,19 +365,13 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             }
         }
         
-        print(sizeStrings)
-        
         //loop through buttons array and change button titles to size strings as needed then unhide the button
         for (index, size) in self.sizeStrings.enumerate() {
             
             let button = self.sizeButtons[index]
             
             button.setTitle(size, forState: .Normal)
-            
-//            for button in sizeButtons {
-//                print(button.titleLabel?.text)
-//            }
-//            
+        
             button.hidden = false
         }
     }
@@ -440,10 +434,6 @@ class ItemDetailViewController: UIViewController, ChartViewDelegate {
             button.hidden = true
             
         }
-//        
-//        for button in sizeButtons {
-//            print(button.titleLabel?.text)
-//        }
         
         for sItem in arrayOfSubItems {
             
